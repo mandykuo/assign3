@@ -1,4 +1,3 @@
-
 final int GAME_START = 0; 
 final int GAME_RUN = 1;
 final int GAME_WIN = 2;
@@ -124,15 +123,17 @@ void draw() {
     //enemy
     for (int i=0; i<COUNT; i++) {
       float x_position = enemyX - i*spacingenemyX ;  
-      image(enemy, x_position, enemyY);
+      image(enemy, x_position, enemyY+100);
     }
 
-    if (enemyX /*- 4*spacingenemyX*/ == 900) {
-      enemyY=floor(random(420));
+    if (enemyX == 900) {
+      enemyY=floor(random(320));
     }
     
     enemyX%=900;
     enemyX+=4;
+    
+    
     
     //fighter
     image(fighter, fighterX, fighterY);
