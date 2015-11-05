@@ -3,11 +3,14 @@ final int GAME_RUN = 1;
 final int GAME_WIN = 2;
 final int GAME_OVER = 3;
 final int COUNT = 5;
+final int ENEMY_RUN1 = 1;
+final int ENEMY_RUN2 = 2;
 
 float fighterX = 590;
 float fighterY = 240;
 float speed = 5;
 float spacingenemyX = 300/COUNT;
+float spacingenemyY= 200/COUNT;
 float enemyX;
 float enemyY;
 
@@ -17,6 +20,7 @@ boolean leftPressed = false;
 boolean rightPressed = false;
 
 int gameState;
+int enemyRun=ENEMY_RUN1;
 int blood=0;
 int treasureX=floor(random(640));
 int treasureY=floor(random(480));
@@ -121,20 +125,37 @@ void draw() {
     backgroundX%=1280;
 
     //enemy
-    for (int i=0; i<COUNT; i++) {
-      float x_position = enemyX - i*spacingenemyX ;  
-      image(enemy, x_position, enemyY+100);
-    }
+    switch(enemyRun) {
+    case ENEMY_RUN1:
+      for (int i=0; i<COUNT; i++) {
+        float x_position = enemyX - i*spacingenemyX ;  
+        image(enemy, x_position, enemyY+100);
+        if (enemyX - i*spacingenemyX>width+250) {
+          enemyRun=ENEMY_RUN2;
+        }   
+        if (enemyX == 900) {
+          enemyY=floor(random(320));
+        }
+      }
+      break;
 
-    if (enemyX == 900) {
-      enemyY=floor(random(320));
+    case ENEMY_RUN2:
+      for (int k=0; k<COUNT; k++) {
+        float x_position = enemyX - k*spacingenemyX ;
+        float y_position = enemyY + k*spacingenemyY ; 
+        image(enemy, x_position, y_position);
+        if (enemyX - k*spacingenemyX>width+250) {
+          enemyRun=ENEMY_RUN1;
+        }
+        if (y_position>=430){
+          y_position=430;
+        }
+      }
+      break;
     }
-    
     enemyX%=900;
     enemyX+=4;
-    
-    
-    
+
     //fighter
     image(fighter, fighterX, fighterY);
 
