@@ -147,9 +147,12 @@ void draw() {
         if (enemyX - k*spacingenemyX>width+250) {
           enemyRun=ENEMY_RUN1;
         }
-        if (y_position>=430){
-          y_position=430;
-        }
+      if(enemyY>height-280){
+      enemyY=height-280;
+    }
+    if(enemyY<50){
+      enemyY=50;
+    }
       }
       break;
     }
